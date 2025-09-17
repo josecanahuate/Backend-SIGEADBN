@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('sucursal_bn', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('direccion_id')->nullable();
+            //$table->string('code', 3)->storedAs("LPAD(id, 3, '0')")->unique();
             $table->text("razon_social", 255);
             $table->string("rnc", 100);
             $table->date('fecha_aniversario');
@@ -33,6 +35,8 @@ return new class extends Migration
             $table->boolean('trabaja_feriado')->default(false);
             
             $table->enum('tipo_cuadre', ['Individual', 'General'])->nullable();
+
+            $table->foreign('direccion_id')->references('id')->on('direccion_bn')->onDelete('set null');
             
             $table->timestamps();
         });

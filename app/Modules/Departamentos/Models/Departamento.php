@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace App\Modules\Departamento\Models;
 
+use App\Modules\Empleado\Models\Empleado;
+use App\Modules\Sucursal\Models\Sucursal;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -12,13 +14,28 @@ class Departamento extends Model
    protected $table = "departamento_bn";
 
    protected $fillable = [
-      'nombre',
+      'sucursal_id',
+      'nombre_depto',
+      'tel',
+      'tel_ext',
+      'fax',
+      'email',
+      'localidad',
+      'encargado',
+      'trabaja_sabado',
+      'trabaja_domingo',
+      'trabaja_feriado',
    ];
    
+   protected $casts = [
+      'trabaja_sabado' => 'boolean',
+      'trabaja_domingo' => 'boolean',
+      'trabaja_feriado' => 'boolean',
+   ];
 
-   public function institucion()
+   public function sucursal()
    {
-      return $this->belongsTo(Institucion::class);
+      return $this->belongsTo(Sucursal::class);
    }
 
    public function empleados()

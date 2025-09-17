@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('institucion_bn', function (Blueprint $table) {
             $table->id();
+            //$table->string('codigo', 2)->storedAs("LPAD(id, 2, '0')")->unique();
+            //$table->string('code', 2)->nullable()->unique();
             $table->text("razon_social", 255);
+            $table->text("nombre_institucion", 255);
             $table->string("rnc", 100);
             $table->string("direccion_1", 255);
             $table->string("direccion_2", 255)->nullable();
@@ -25,20 +28,20 @@ return new class extends Migration
             $table->string('localidad')->nullable();
             $table->string('encargado');
             
-            $table->decimal('capital', 10, 2);
-            $table->integer('registro_ind');
-            $table->integer('idss');
-            $table->integer('registro');
-            $table->integer('poliza');
+            $table->decimal('capital', 10, 2)->nullable();
+            $table->integer('registro_ind')->nullable();
+            $table->integer('idss')->nullable();
+            $table->integer('registro')->nullable();
+            $table->integer('poliza')->nullable();
 
-            $table->date('aniversario');
-            $table->string('actividad');
-            $table->string('clase_empresa');
+            $table->date('aniversario')->nullable();
+            $table->string('actividad')->nullable();
+            $table->string('clase_empresa')->nullable();
 
-            $table->integer('mes_inicio');
-            $table->integer('mes_fin');
-            $table->decimal('tasa_itbis', 8, 2);
-            $table->string('cuenta_periodo');
+            $table->integer('mes_inicio')->nullable();
+            $table->integer('mes_fin')->nullable();
+            $table->decimal('tasa_itbis', 8, 2)->nullable();
+            $table->string('cuenta_periodo')->nullable();
 
             $table->timestamps();
         });

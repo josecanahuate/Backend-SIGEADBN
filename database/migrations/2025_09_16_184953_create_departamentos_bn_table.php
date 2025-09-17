@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('departamento_bn', function (Blueprint $table) {
+        Schema::create('departamentos_bn', function (Blueprint $table) {
             $table->id();
+            //$table->string('code', 3)->storedAs("LPAD(id, 3, '0')")->unique();
+            $table->unsignedBigInteger('sucursal_id')->nullable();
             $table->text("nombre_depto", 255);
             $table->string("tel", 50);
             $table->string("tel_ext", 50);
@@ -25,6 +27,8 @@ return new class extends Migration
             $table->boolean('trabaja_domingo')->default(false);
             $table->boolean('trabaja_feriado')->default(false);
 
+
+            $table->foreign('sucursal_id')->references('id')->on('sucursal_bn')->onDelete('set null');
             $table->timestamps();
         });
     }

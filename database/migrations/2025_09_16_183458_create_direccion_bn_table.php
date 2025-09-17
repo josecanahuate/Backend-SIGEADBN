@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('direccion_bn', function (Blueprint $table) {
             $table->id();
-            
+           // $table->string('code', 3)->storedAs("LPAD(id, 3, '0')")->unique();
+            $table->unsignedBigInteger('institucion_id')->nullable();
             $table->text("razon_social", 255);
             $table->string("rnc", 100);
             $table->date('fecha_aniversario');
@@ -37,6 +38,9 @@ return new class extends Migration
             $table->boolean('trabaja_domingo')->default(false);
             $table->boolean('trabaja_feriado')->default(false);
             
+            $table->foreign('institucion_id')->references('id')->on('institucion_bn')->onDelete('set null');
+
+
             $table->timestamps();
         });
     }
