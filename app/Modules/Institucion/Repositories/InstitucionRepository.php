@@ -2,7 +2,6 @@
 
 namespace App\Modules\Institucion\Repositories;
 
-use App\Modules\Institucion\Resources\InstitucionResource;
 use App\Modules\Institucion\Models\Institucion;
 
 
@@ -10,12 +9,10 @@ class InstitucionRepository
 {
     public function getAll()
     {
-        return Institucion::all();
+        $institucion = Institucion::select('id', 'razon_social', 'nombre_institucion', 'rnc',
+        'direccion_1', 'direccion_2', 'tel_1', 'email', 'encargado', 'clase_empresa')->get();
 
-        
-
-        // REVISAR NO FUNCIONA
-        //return InstitucionResource::collection(Institucion::query()->orderBy('id', 'desc')->get());
+        return $institucion;
     }
 
     public function findById($id)

@@ -40,7 +40,7 @@ class Sucursal extends Model
       'trabaja_domingo' => 'boolean',
       'trabaja_feriado' => 'boolean',
    ];
-   
+
 
    public function direccion()
    {
@@ -56,7 +56,4 @@ class Sucursal extends Model
    {
       return $this->hasMany(Empleado::class);
    }
-
-
-
 }

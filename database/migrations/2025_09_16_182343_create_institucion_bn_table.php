@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             //$table->string('codigo', 2)->storedAs("LPAD(id, 2, '0')")->unique();
             //$table->string('code', 2)->nullable()->unique();
-            $table->text("razon_social", 255);
-            $table->text("nombre_institucion", 255);
+            $table->string("razon_social", 255);
+            $table->string("nombre_institucion", 255);
             $table->string("rnc", 100);
             $table->string("direccion_1", 255);
             $table->string("direccion_2", 255)->nullable();
@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('a_postal')->nullable();
             $table->string('localidad')->nullable();
             $table->string('encargado');
-            
+
             $table->decimal('capital', 10, 2)->nullable();
             $table->integer('registro_ind')->nullable();
             $table->integer('idss')->nullable();
