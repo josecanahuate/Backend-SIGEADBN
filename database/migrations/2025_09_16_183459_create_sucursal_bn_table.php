@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('direccion_id')->nullable();
             //$table->string('code', 3)->storedAs("LPAD(id, 3, '0')")->unique();
             $table->string("razon_social", 255);
+            $table->string("nombre_sucursal", 255);
             $table->string("rnc", 100);
             $table->date('fecha_aniversario');
             $table->text("direccion_1");
@@ -26,16 +27,13 @@ return new class extends Migration
             $table->string('localidad', 200)->nullable();
             $table->string('email', 200)->unique();
             $table->string('encargado', 150);
-
             $table->integer('cod_iso');
             $table->integer('cod_ministerio');
-
             $table->boolean('trabaja_sabado')->default(false);
             $table->boolean('trabaja_domingo')->default(false);
             $table->boolean('trabaja_feriado')->default(false);
-
             $table->enum('tipo_cuadre', ['Individual', 'General'])->nullable();
-
+            
             $table->foreign('direccion_id')->references('id')->on('direccion_bn')->onDelete('set null');
 
             $table->timestamps();

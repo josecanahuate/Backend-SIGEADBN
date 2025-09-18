@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Departamento\Requests;
+namespace App\Modules\Departamentos\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -14,7 +14,7 @@ class DepartamentoStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'sucursal_id' => 'required|string|max:255',
+            'sucursal_id' => 'required',
             'nombre_depto' => 'required|string|max:255',
             'tel' => 'nullable|string|max:50',
             'tel_ext' => 'nullable|string|max:50',
@@ -33,7 +33,8 @@ class DepartamentoStoreRequest extends FormRequest
    public function messages(): array
    {
       return [
-         'nombre_depto.required' => 'campo obligatorio.',
+         'nombre_depto.required' => 'campo es requerido.',
+         'sucursal_id.required' => 'campo es requerido.',
       ];
    }
 }

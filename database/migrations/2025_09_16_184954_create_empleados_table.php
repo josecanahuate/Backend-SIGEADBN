@@ -11,18 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('empleados', function (Blueprint $table) {
+        Schema::create('empleados_bn', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('institucion_id')->nullable();
             $table->unsignedBigInteger('direccion_id')->nullable();
             $table->unsignedBigInteger('departamento_id')->nullable();
             $table->unsignedBigInteger('sucursal_id')->nullable();
 
-            $table->string('nombres', 255);
+            $table->string('nombres', 255)->unique();;
             $table->enum('tipo_id', ['Cedula', 'Pasaporte']);
             $table->string('no_documento', 255);
-            $table->string('usuario_empleado')->unique();
-            $table->string('email')->unique();
+            $table->string('usuario_empleado', 255)->unique();
+            $table->string('email', 255)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
@@ -65,7 +65,7 @@ return new class extends Migration
 
     public function down()
     {
-        Schema::table('empleados', function (Blueprint $table) {
+        Schema::table('empleados_bn', function (Blueprint $table) {
         $table->dropForeign(['institucion_id']);
         $table->dropForeign(['direccion_id']);
         $table->dropForeign(['sucursal_id']);

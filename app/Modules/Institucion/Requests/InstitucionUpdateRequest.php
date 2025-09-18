@@ -44,10 +44,10 @@ class InstitucionUpdateRequest extends FormRequest
    public function messages(): array
    {
       return [
-         'razon_social.required' => 'campo obligatorio.',
-         'rnc.required' => 'campo obligatorio',
-         'nombre_institucion.required' => 'campo obligatorio',
-         'direccion_1.required' => 'campo obligatorio',
+         'razon_social.required' => 'campo es requerido.',
+         'rnc.required' => 'campo es requerido',
+         'nombre_institucion.required' => 'campo es requerido',
+         'direccion_1.required' => 'campo es requerido',
          'email.email' => 'introduzca un email válido.',
       ];
    }

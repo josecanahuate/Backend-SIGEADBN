@@ -17,6 +17,7 @@ class Sucursal extends Model
    protected $fillable = [
       'direccion_id',
       'razon_social',
+      'nombre_sucursal',
       'rnc',
       'fecha_aniversario',
       'direccion_1',
@@ -56,4 +57,8 @@ class Sucursal extends Model
    {
       return $this->hasMany(Empleado::class);
    }
+
+   protected $attributes = [
+      'direccion_id' => 1,
+   ];
 }

@@ -1,12 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Modules\Institucion\Controllers\InstitucionController;
+use App\Modules\Sucursal\Controllers\SucursalController;
 
 
- /*   Route::get("/instituciones", [InstitucionController::class, 'index']);
-   Route::post("/instituciones", [InstitucionController::class, 'store']);
-   Route::put("/instituciones/{id}", [InstitucionController::class, 'update']); */
+Route::get("/sucursales", [SucursalController::class, 'index']);
+Route::post("/sucursales", [SucursalController::class, 'store']);
+Route::put("/sucursales/{id}", [SucursalController::class, 'update']);
 
 
 

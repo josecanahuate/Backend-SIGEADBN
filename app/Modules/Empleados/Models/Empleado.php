@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Modules\Empleado\Models;
+namespace App\Modules\Empleados\Models;
 
-use App\Modules\Departamento\Models\Departamento;
+use App\Modules\Departamentos\Models\Departamento;
 use App\Modules\Direccion\Models\Direccion;
 use App\Modules\Institucion\Models\Institucion;
 use App\Modules\Sucursal\Models\Sucursal;
@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Empleado extends Model
 {
    use HasFactory;
+   
    protected $table = "empleados_bn";
 
    protected $fillable = [
@@ -51,5 +52,4 @@ class Empleado extends Model
    {
       return $this->belongsTo(Sucursal::class);
    }
-
 }

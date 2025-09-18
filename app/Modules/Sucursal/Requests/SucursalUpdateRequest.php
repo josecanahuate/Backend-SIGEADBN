@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Institucion\Requests;
+namespace App\Modules\Sucursal\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -14,41 +14,35 @@ class SucursalUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'direccion_id' => 'nullable',
             'razon_social' => 'required|string|max:255',
             'rnc' => 'required|string|max:100',
-            'nombre_institucion' => 'required|string|max:255',
+            'nombre_sucursal' => 'required|string|max:255',
+            'fecha_aniversario' => 'nullable|date',
             'direccion_1' => 'required|string|max:255',
             'direccion_2' => 'nullable|string|max:255',
             'tel_1' => 'nullable|string|max:50',
             'tel_2' => 'nullable|string|max:50',
             'fax' => 'nullable|string|max:50',
-            'email' => 'nullable|email',
-            'a_postal' => 'nullable|string|max:100',
             'localidad' => 'nullable|string|max:100',
+            'email' => 'nullable|email',
             'encargado' => 'nullable|string|max:100',
-            'capital' => 'nullable|numeric|min:0',
-            'registro_ind' => 'nullable|integer',
-            'idss' => 'nullable|integer',
-            'registro' => 'nullable|integer',
-            'poliza' => 'nullable|integer',
-            'aniversario' => 'nullable|date',
-            'actividad' => 'nullable|string',
-            'clase_empresa' => 'nullable|string',
-            'mes_inicio' => 'nullable|integer|min:1|max:12',
-            'mes_fin' => 'nullable|integer|min:1|max:12',
-            'tasa_itbis' => 'nullable|numeric|min:0',
-            'cuenta_periodo' => 'nullable|string',
+            'cod_iso' => 'nullable|integer',
+            'cod_ministerio' => 'nullable|integer',
+            'trabaja_sabado' => 'nullable',
+            'trabaja_domingo' => 'nullable',
+            'trabaja_feriado' => 'nullable',
+            'tipo_cuadre' => 'nullable',
         ];
     }
 
    public function messages(): array
    {
       return [
-         'razon_social.required' => 'campo obligatorio.',
-         'rnc.required' => 'campo obligatorio',
-         'nombre_institucion.required' => 'campo obligatorio',
-         'direccion_1.required' => 'campo obligatorio',
-         'email.email' => 'introduzca un email válido.',
+         'razon_social.required' => 'campo es requerido.',
+         'rnc.required' => 'campo es requerido',
+         'nombre_sucursal.required' => 'campo es requerido',
+         'direccion_1.required' => 'campo es requerido',
       ];
    }
 }
