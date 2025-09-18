@@ -22,7 +22,7 @@ class InstitucionController extends Controller
     {
         return response()->json($this->service->getAll());
     }
-          
+
 
     //Crear Instituciones
     public function store(InstitucionStoreRequest $request): JsonResponse
@@ -36,13 +36,13 @@ class InstitucionController extends Controller
 
       } catch (\Exception $e) {
             return response()->json([
-            'message' => 'Error al Crear Institución', 
+            'message' => 'Error al Crear Institución',
             'error' => $e->getMessage()
          ], 500);
         }
 
     }
-    
+
 
     //Actualizar Instituciones
     public function update(InstitucionUpdateRequest $request, $id): JsonResponse
@@ -58,7 +58,7 @@ class InstitucionController extends Controller
 
       } catch (\Exception $e) {
             return response()->json([
-            'message' => 'Error al Actualizar Institución', 
+            'message' => 'Error al Actualizar Institución',
             'error' => $e->getMessage()
          ], 500);
         }

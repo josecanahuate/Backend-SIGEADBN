@@ -19,6 +19,7 @@ class Direccion extends Model
    protected $fillable = [
       'institucion_id',
       'razon_social',
+      'nombre_direccion',
       'rnc',
       'fecha_aniversario',
       'direccion_1',
@@ -65,4 +66,8 @@ class Direccion extends Model
    {
       return $this->hasManyThrough(Departamento::class, Sucursal::class, 'direction_id', 'branch_id', 'id', 'id');
    }
+
+   protected $attributes = [
+      'institucion_id' => 1,
+   ];
 }

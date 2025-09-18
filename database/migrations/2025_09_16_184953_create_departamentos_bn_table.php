@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             //$table->string('code', 3)->storedAs("LPAD(id, 3, '0')")->unique();
             $table->unsignedBigInteger('sucursal_id')->nullable();
-            $table->text("nombre_depto", 255);
+            $table->string("nombre_depto", 255);
             $table->string("tel", 50);
             $table->string("tel_ext", 50);
             $table->string("fax", 50);

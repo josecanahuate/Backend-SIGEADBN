@@ -16,12 +16,12 @@ class InstitucionResource extends JsonResource
 
     public static $wrap = false;
 
-    public function toArray(Request $request): array
+/*     public function toArray(Request $request): array
     {
         return [
          'id' => $this->id,
          'razon_social' => $this->razon_social,
          'rnc' => $this->rnc,
         ];
-    }
+    } */
 }

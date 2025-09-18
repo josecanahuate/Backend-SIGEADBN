@@ -26,7 +26,7 @@ class Departamento extends Model
       'trabaja_domingo',
       'trabaja_feriado',
    ];
-   
+
    protected $casts = [
       'trabaja_sabado' => 'boolean',
       'trabaja_domingo' => 'boolean',
