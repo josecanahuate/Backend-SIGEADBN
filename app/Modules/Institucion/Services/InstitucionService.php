@@ -3,6 +3,7 @@
 namespace App\Modules\Institucion\Services;
 
 use App\Modules\Institucion\Repositories\InstitucionRepository;
+use Exception;
 
 class InstitucionService
 {
@@ -23,10 +24,16 @@ class InstitucionService
         return $this->repository->findById($id);
     }
 
-    public function create(array $data)
+
+      public function create(array $data)
     {
+        if ($this->repository->existsByName($data['nombre_institucion'])) {
+            throw new Exception("Ya existe una institución con este nombre");
+        }
+
         return $this->repository->create($data);
     }
+
 
     public function update($id, array $data)
     {

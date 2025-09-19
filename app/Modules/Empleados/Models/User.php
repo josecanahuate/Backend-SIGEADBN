@@ -3,7 +3,7 @@
 namespace App\Modules\Empleados\Models;
 
 use App\Modules\Departamentos\Models\Departamento;
-use Illuminate\Foundation\Auth\Empleado as Authenticatable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Modules\Direccion\Models\Direccion;
 use App\Modules\Institucion\Models\Institucion;
 use App\Modules\Sucursal\Models\Sucursal;
@@ -12,7 +12,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 
-class Empleado extends Authenticatable
+class User extends Authenticatable
 {
    use HasApiTokens, HasFactory, Notifiable;
 
@@ -36,7 +36,7 @@ class Empleado extends Authenticatable
 
 
    protected $hidden = [
-      'password',
+      #'password',
       'remember_token',
    ];
 

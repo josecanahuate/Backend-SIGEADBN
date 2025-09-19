@@ -20,6 +20,12 @@ class InstitucionRepository
         return Institucion::findOrFail($id);
     }
 
+    public function existsByName(string $nombre): bool
+    {
+        return Institucion::where('nombre_institucion', $nombre)->exists();
+    }
+
+
     public function create(array $data)
     {
         return Institucion::create($data);
