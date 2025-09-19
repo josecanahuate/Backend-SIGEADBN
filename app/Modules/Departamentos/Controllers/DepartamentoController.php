@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Modules\Departamento\Controllers;
+namespace App\Modules\Departamentos\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Departamento\Requests\DepartamentoStoreRequest;
-use App\Modules\Departamento\Services\DepartamentoService;
-use App\Modules\Institucion\Requests\DepartamentoUpdateRequest;
+use App\Modules\Departamentos\Requests\DepartamentoStoreRequest;
+use App\Modules\Departamentos\Services\DepartamentoService;
+use App\Modules\Departamentos\Requests\DepartamentoUpdateRequest;
 use Illuminate\Http\JsonResponse;
 
 class DepartamentoController extends Controller
@@ -30,7 +30,7 @@ class DepartamentoController extends Controller
       try {
         $departamento = $this->service->create($request->validated());
         return response()->json([
-            'message' => 'Departamento creada!',
+            'message' => 'Departamento creado!',
             'data' => $departamento
         ], 201);
 
@@ -51,7 +51,7 @@ class DepartamentoController extends Controller
         $departamento = $this->service->update($id, $request->validated());
 
         return response()->json([
-            'message' => 'Departamento Actualizada!',
+            'message' => 'Departamento Actualizado!',
             'data' => $departamento
         ], 201);
 

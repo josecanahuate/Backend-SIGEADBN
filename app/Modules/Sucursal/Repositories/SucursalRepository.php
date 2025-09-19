@@ -9,9 +9,7 @@ class SucursalRepository
 {
     public function getAll()
     {
-        $sucursal = Sucursal::select('id', 'razon_social', 'nombre_sucursal', 'rnc',
-        'direccion_1', 'direccion_2', 'tel_1', 'email', 'encargado', 'clase_empresa')->get();
-
+        $sucursal = Sucursal::select('id', 'razon_social', 'nombre_sucursal', 'rnc')->paginate(10);
         return $sucursal;
     }
 

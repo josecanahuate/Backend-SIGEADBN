@@ -3,8 +3,8 @@
 namespace App\Modules\Sucursal\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Institucion\Requests\SucursalUpdateRequest;
 use App\Modules\Sucursal\Requests\SucursalStoreRequest;
+use App\Modules\Sucursal\Requests\SucursalUpdateRequest;
 use App\Modules\Sucursal\Services\SucursalService;
 use Illuminate\Http\JsonResponse;
 
@@ -49,7 +49,6 @@ class SucursalController extends Controller
     {
       try {
         $sucursal = $this->service->update($id, $request->validated());
-        //return response()->json($sucursal, 201);
 
         return response()->json([
             'message' => 'Sucursal Actualizada!',

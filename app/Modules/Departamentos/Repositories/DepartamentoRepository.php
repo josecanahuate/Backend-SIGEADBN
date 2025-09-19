@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Modules\Departamento\Repositories;
+namespace App\Modules\Departamentos\Repositories;
 
-use App\Modules\Departamento\Models\Departamento;
+use App\Modules\Departamentos\Models\Departamento;
 
 
 class DepartamentoRepository
 {
     public function getAll()
     {
-        $departamento = Departamento::select('id', 'razon_social', 'nombre_depto', 'tel')->paginate(10);
+        $departamento = Departamento::select('id', 'nombre_depto')->paginate(5);
         return $departamento;
     }
 

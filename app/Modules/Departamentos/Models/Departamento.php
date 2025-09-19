@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Modules\Departamento\Models;
+namespace App\Modules\Departamentos\Models;
 
-use App\Modules\Empleado\Models\Empleado;
 use App\Modules\Sucursal\Models\Sucursal;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Departamento extends Model
 {
    use HasFactory;
-   protected $table = "departamento_bn";
+   protected $table = "departamentos_bn";
 
    protected $fillable = [
       'sucursal_id',
@@ -42,5 +41,4 @@ class Departamento extends Model
    {
       return $this->hasMany(Empleado::class);
    }
-
 }

@@ -1,6 +1,5 @@
 <?php
 
-use App\Modules\Direccion\Controllers\DireccionController;
 use App\Modules\Institucion\Controllers\InstitucionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,3 +16,12 @@ Route::put("/instituciones/{id}", [InstitucionController::class, 'update']);
 
 # DIRECCION
 require base_path('app/Modules/Direccion/Routes/api.php');
+
+# SUCURSAL
+require base_path('app/Modules/Sucursal/Routes/api.php');
+
+# DEPARTAMENTOS
+require base_path('app/Modules/Departamentos/Routes/api.php');
+
+# EMPLEADOS
+require base_path('app/Modules/Empleados/Routes/api.php');

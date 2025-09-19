@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Modules\Departamentos\Services;
+namespace App\Modules\Empleados\Services;
 
-use App\Modules\Departamentos\Repositories\DepartamentoRepository;
+use App\Modules\Empleados\Repositories\EmpleadoRepository;
 
-class DepartamentoService
+class EmpleadoService
 {
     protected $repository;
 
-    public function __construct(DepartamentoRepository $repository)
+    public function __construct(EmpleadoRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -30,7 +30,7 @@ class DepartamentoService
 
     public function update($id, array $data)
     {
-        $departamento = $this->repository->findById($id);
-        return $this->repository->update($departamento, $data);
+        $empleado = $this->repository->findById($id);
+        return $this->repository->update($empleado, $data);
     }
 }
