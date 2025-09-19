@@ -1,0 +1,70 @@
+<?php
+
+namespace App\Modules\Auth\Controllers;
+
+use App\Http\Controllers\Controller;
+use App\Modules\Empleados\Models\Empleado;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
+
+
+class NewPasswordController extends Controller {
+
+   //Nueva Contraseña
+   /*  public function create(Request $request): Response
+    {
+        return Inertia::render('auth/reset-password', [
+            'email' => $request->email,
+            'token' => $request->route('token'),
+        ]);
+    } */
+
+
+
+   public function store(Request $request): RedirectResponse
+   {
+      $request->validate([
+         'token' => 'required',
+         'email' => 'required|email',
+         'password' => ['required', 'confirmed'],
+      ]);
+
+      // Here we will attempt to reset the user's password. If it is successful we
+      // will update the password on an actual user model and persist it to the
+      // database. Otherwise we will parse the error and return the response.
+      $status = Password::reset(
+         $request->only('email', 'password', 'password_confirmation', 'token'),
+         function (Empleado $empleado) use ($request) {
+               $empleado->forceFill([
+                  'password' => Hash::make($request->password),
+                  'remember_token' => Str::random(60),
+               ])->save();
+
+               event(new PasswordReset($empleado));
+         }
+      );
+
+      // If the password was successfully reset, we will redirect the user back to
+      // the application's home authenticated view. If there is an error we can
+      // redirect them back to where they came from with their error message.
+      /* if ($status == Password::PasswordReset) {
+         return to_route('login')->with('status', __($status));
+      } */
+
+      throw ValidationException::withMessages([
+         'email' => [__($status)],
+      ]);
+   }
+
+
+
+
+
+
+}

@@ -3,11 +3,10 @@
 namespace App\Modules\Empleados\Models;
 
 use App\Modules\Departamentos\Models\Departamento;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\Empleado as Authenticatable;
 use App\Modules\Direccion\Models\Direccion;
 use App\Modules\Institucion\Models\Institucion;
 use App\Modules\Sucursal\Models\Sucursal;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -15,7 +14,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Empleado extends Authenticatable
 {
-   use HasApiTokens, Notifiable;
+   use HasApiTokens, HasFactory, Notifiable;
 
    protected $table = "empleados_bn";
 
@@ -42,7 +41,8 @@ class Empleado extends Authenticatable
    ];
 
    protected $casts = [
-      'email_verified_at' => 'datetime',
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
    ];
 
    public function institucion()
