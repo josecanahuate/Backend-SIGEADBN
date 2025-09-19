@@ -23,23 +23,21 @@ class EmpleadoController extends Controller
         return response()->json($this->service->getAll());
     }
 
+    public function show($id): JsonResponse
+    {
+        return response()->json($this->service->find($id));
+    }
 
-    //Crear Empleados
-    public function store(EmpleadoStoreRequest $request): JsonResponse
-    {  
-      try {
-        $data = $request->validated();
-        $data['password'] = bcrypt($data['password']);
-        // Agregar roles al usuario
-        //$user->roles()->attach($request->roles);
-        //$empleado->syncRoles($request->roles);
-        // Retornar la respuesta con el usuario creado
-        $empleado = $this->service->create($data);
-          return response()->json([
-            'status' => true,
-            'message' => 'Empleado creado!',
-            'empleado' => $empleado
-        ], 201);
+    //Crear Empleado
+     public function store(EmpleadoStoreRequest $request): JsonResponse
+    {
+       try {
+        $empleado = $this->service->create($request->validated());
+        return response()->json([
+          'status' => true,
+          'message' => 'Empleado creado!',
+          'empleado' => $empleado
+      ], 201);
 
       } catch (\Exception $e) {
             return response()->json([
@@ -48,8 +46,6 @@ class EmpleadoController extends Controller
          ], 500);
         }
     }
-
-
 
      /*  public function edit(User $user)
     {
@@ -64,19 +60,18 @@ class EmpleadoController extends Controller
     //Actualizar Empleados
     public function update(EmpleadoUpdateRequest $request, $id): JsonResponse
     {
-      try {
+       try {
         $empleado = $this->service->update($id, $request->validated());
-
         return response()->json([
             'message' => 'Empleado Actualizado!',
             'data' => $empleado
         ], 201);
 
       } catch (\Exception $e) {
-            return response()->json([
-            'message' => 'Error al Actualizar Empleado',
-            'error' => $e->getMessage()
-         ], 500);
+              return response()->json([
+              'message' => 'Error al Actualizar Empleado',
+              'error' => $e->getMessage()
+          ], 500);
         }
     }
 }

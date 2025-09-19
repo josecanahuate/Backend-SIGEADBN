@@ -24,9 +24,8 @@ class EmpleadoStoreRequest extends FormRequest
             'no_documento'     => 'required|string|max:255|unique:empleados_bn,no_documento',
             'usuario_empleado' => 'required|string|max:255|unique:empleados_bn,usuario_empleado',
             'email'            => 'required|string|email|max:255|unique:empleados_bn,email',
-            'password'         => 'required',
+            'password'         => 'required|string',
             #'password'         => 'required|string|min:8|confirmed',
-
             'puesto'           => 'required|string|max:255',
             'estatus_empleado' => 'required|in:Activo,Inactivo',
             #'roles' => 'required|array',
@@ -49,6 +48,7 @@ class EmpleadoStoreRequest extends FormRequest
         'tipo_id.required' => 'campo es requerido.',
         'usuario_empleado.unique' => 'El usuario ya existe.',
         'no_documento.required' => 'campo es requerido.',
+        'no_documento.unique' => 'El documento ya existe.',
         'password.required' => 'campo es requerido.',
         'puesto.required' => 'campo es requerido.',
         'estatus_empleado.required' => 'campo es requerido.',
@@ -61,7 +61,7 @@ class EmpleadoStoreRequest extends FormRequest
 
         #'roles.required' => 'Selecciona al menos un rol.',
         #'roles.array' => 'Rol no válido.',
-        #'roles.*.exists' => 'El rol seleccionado no existe.',  
+        #'roles.*.exists' => 'El rol seleccionado no existe.',
       ];
    }
 }

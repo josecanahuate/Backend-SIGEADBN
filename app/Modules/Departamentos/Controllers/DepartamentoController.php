@@ -40,7 +40,6 @@ class DepartamentoController extends Controller
             'error' => $e->getMessage()
          ], 500);
         }
-
     }
 
 
