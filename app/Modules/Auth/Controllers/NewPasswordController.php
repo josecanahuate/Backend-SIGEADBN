@@ -3,68 +3,93 @@
 namespace App\Modules\Auth\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Empleados\Models\Empleado;
+use App\Modules\Empleados\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\PasswordReset;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
-use Illuminate\Validation\ValidationException;
-
 
 class NewPasswordController extends Controller {
 
-   //Nueva Contraseña
-   /*  public function create(Request $request): Response
-    {
-        return Inertia::render('auth/reset-password', [
-            'email' => $request->email,
-            'token' => $request->route('token'),
-        ]);
-    } */
 
-
-
-   public function store(Request $request): RedirectResponse
-   {
-      $request->validate([
-         'token' => 'required',
-         'email' => 'required|email',
-         'password' => ['required', 'confirmed'],
-      ]);
-
-      // Here we will attempt to reset the user's password. If it is successful we
-      // will update the password on an actual user model and persist it to the
-      // database. Otherwise we will parse the error and return the response.
-      $status = Password::reset(
-         $request->only('email', 'password', 'password_confirmation', 'token'),
-         function (Empleado $empleado) use ($request) {
-               $empleado->forceFill([
-                  'password' => Hash::make($request->password),
-                  'remember_token' => Str::random(60),
-               ])->save();
-
-               event(new PasswordReset($empleado));
+   public function resetPassword(Request $request, User $usuario)
+      {
+      try{
+          $request->validate([
+              'usuario_empleado' => 'required|exists:empleados_bn,usuario_empleado',
+              'password' => 'required',
+              'password_confirmation' => 'required',
+              'new_password' => 'required'
+          ]);
+  
+          $updatePassword = DB::table('empleados_bn')->where([
+               'usuario_empleado' => $request->usuario_empleado
+            ])->first();
+  
+         if(!$updatePassword){
+            return response()->json(['message' => 'Token Invalido!',], 500);
          }
-      );
+  
+         $usuario = User::where('usuario_empleado', $request->usuario_empleado)
+         ->update(['password' => Hash::make($request->password)]);
+ 
 
-      // If the password was successfully reset, we will redirect the user back to
-      // the application's home authenticated view. If there is an error we can
-      // redirect them back to where they came from with their error message.
-      /* if ($status == Password::PasswordReset) {
-         return to_route('login')->with('status', __($status));
-      } */
+         return response()->json([
+            'usuario' => $usuario,
+            'message' => 'Contraseña Actualizada!',
+         ], 200);
 
-      throw ValidationException::withMessages([
-         'email' => [__($status)],
-      ]);
-   }
-
-
-
-
+          //DB::table('password_resets')->where(['email'=> $request->email])->delete();
+      } catch (\Exception $e) {
+              return response()->json([
+              'message' => 'Error al Actualizar Contraseña',
+              'error' => $e->getMessage()
+          ], 500);
+        }
+   } 
 
 
+
+   /* public function resetPassword(Request $request, $id) {
+      try {
+         $request->validate([
+            'usuario_empleado' => 'required|exists:empleados_bn,usuario_empleado',
+            'password' => 'required',
+            'new_password' => 'required',
+            'password_confirmation' => 'required'
+          ]);
+
+         $usuario = User::findOrFail($id);
+         $credenciales = User::select('id', 'usuario_empleado', 'password');
+
+         $usuario = $credenciales->usuario_empleado;
+         $current_password = $credenciales->password;
+
+         // COMPARANDO LA CONTRASEÑA HASHEADA CON LA CONTRASEÑA INSERTADA
+         if (Hash::check($request->password, $current_password)) {
+            if ($request->new_password === $request->password_confirmation) {
+            $usuario = User::where('usuario_empleado', $request->usuario_empleado)
+            ->update(['password' => Hash::make($request->new_password)]);
+            }
+         } else {
+            print_r("NOT MATCHING");   
+         }
+
+         return response()->json([
+            'status'=> true,
+            'usuario' => $usuario,
+            'message' => 'Contraseña Actualizada!',
+         ], 200);
+
+
+    } catch (\Exception $e) {
+              return response()->json([
+              'message' => 'Error al Actualizar Contraseña',
+              'error' => $e->getMessage()
+          ], 500);
+        }
+   } */
 }

@@ -3,33 +3,13 @@
 namespace App\Modules\Auth\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Empleados\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller {
 
-   //Login de Empleados
-   #public function login(LoginRequest $request)
-/*    public function login(Request $request)
-   {
-      $credentials = $request->validated();
-
-      if (!Auth::attempt($credentials)) {
-         return response([
-            'message' => 'Usuario o Contraseña Incorrectos'
-         ], 422);
-      }
-      $empleado = Auth::empleado();
-      $token = $empleado->createToken('mainToken')->plainTextToken;
-
-      return response()->json([
-         'empleado' => $empleado,
-         'token' => $token
-      ]);
-   } */
-
-
-
+   //Login de Usuarios-Empleados
     public function login(Request $request){
 
         // Validar el login
@@ -56,11 +36,11 @@ class AuthController extends Controller {
             ], 401);
         }
 
-        $usuario = ModelsUser::where('usuario_empleado', $request->usuario_empleado)->first();
+        $usuario = User::where('usuario_empleado', $request->usuario_empleado)->first();
 
         //si todo esta bien se crea el token relacionado al usuario
-        //$token = $user->createToken($request->email)->plainTextToken;
-        $token = $usuario->createToken('ACCESS_TOKEN')->plainTextToken;
+        $token = $usuario->createToken($request->usuario_empleado)->plainTextToken;
+        //$token = $usuario->createToken('ACCESS_TOKEN')->plainTextToken;
 
         return response()->json([
             'status'=> true,
@@ -74,11 +54,11 @@ class AuthController extends Controller {
    //Logout
    public function logout(Request $request){
    // Eliminando token que fue usado para hacer autenticarse
-   $request->empleado()->currentAccessToken()->delete();
+   $request->user()->currentAccessToken()->delete();
 
    return response()->json([
       'res'=> true,
-      'msg'=> 'Session closed sucesfully!!'
+      'message'=> 'Sesión cerrada'
    ],200);
    }
 }

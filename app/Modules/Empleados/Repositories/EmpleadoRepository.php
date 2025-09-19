@@ -2,7 +2,7 @@
 
 namespace App\Modules\Empleados\Repositories;
 
-use App\Modules\Empleados\Models\Empleado;
+use App\Modules\Empleados\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 
@@ -11,7 +11,7 @@ class EmpleadoRepository
     public function getAll()
     {
         //MOSTRAR SOLO 2 PARTES DEL NOMBRE -> HACERLO EN EL FRONTEND
-        $empleado = Empleado::select('id', 'nombres', 'usuario_empleado', 'institucion_id', 'departamento_id', 'sucursal_id',
+        $empleado = User::select('id', 'nombres', 'usuario_empleado', 'institucion_id', 'departamento_id', 'sucursal_id',
         'direccion_id', 'estatus_empleado')
         ->latest()
         ->paginate(5);
@@ -21,7 +21,7 @@ class EmpleadoRepository
     //TODA LA INFORMACION DE UN EMPLEADO
     public function findById($id)
     {
-        $empleado = Empleado::select('id', 'nombres', 'usuario_empleado', 'tipo_id', 'no_documento', 'email',
+        $empleado = User::select('id', 'nombres', 'usuario_empleado', 'tipo_id', 'no_documento', 'email',
         'puesto', 'estatus_empleado', 'institucion_id', 'departamento_id', 'sucursal_id', 'direccion_id')
         //->with('roles')
         ->findOrFail($id);
@@ -47,11 +47,11 @@ class EmpleadoRepository
          // Agregar roles al usuario
         //$user->roles()->attach($data['roles']); 
         //ò $empleado->syncRoles($request->roles);
-        return Empleado::create($data);
+        return User::create($data);
     }
 
 
-     public function update(Empleado $empleado, array $data)
+     public function update(User $empleado, array $data)
     {
         if (isset($data['password'])) {
             //$data['password'] = bcrypt($data['password']); //cambiar contraseña si campo esta relleno
