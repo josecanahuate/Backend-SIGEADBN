@@ -23,7 +23,7 @@ class DepartamentoController extends Controller
         return response()->json($this->service->getAll());
     }
 
-
+    
     //Crear Departamentos
     public function store(DepartamentoStoreRequest $request): JsonResponse
     {
