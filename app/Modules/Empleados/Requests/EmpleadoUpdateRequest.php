@@ -13,13 +13,11 @@ class EmpleadoUpdateRequest extends FormRequest
         return true;
     }
 
-    
+
     public function rules(): array
     {
-/*         $empleadoId = Empleado::find($this->empleado->id);
-        $empleadoId = Empleado::findOrfail($id); */
-
-       // $empleadoId = $this->route('empleado')->id; 
+       $empleadoId = $this->route('empleado');
+       //$id = $this->route('empleado');
 
 
         return [
@@ -28,36 +26,19 @@ class EmpleadoUpdateRequest extends FormRequest
             'departamento_id'  => 'nullable|exists:departamentos_bn,id',
             'sucursal_id'      => 'nullable|exists:sucursal_bn,id',
 
-            'nombres' => [
+            'nombres' => "sometimes|string|max:255|unique:empleados_bn,nombres,$empleadoId",
+            /* 'nombres' => [
                 'required', 'string', 'max:255',
                 Rule::unique('empleados_bn', 'nombres')->ignore($empleadoId)
-            ],
+            ], */
 
-            'tipo_id' => 'required|in:Cedula,Pasaporte',
-            'no_documento' => 'required|string|max:255',
-
-
-            'usuario_empleado' => 'required|string|max:255|unique:'.Empleado::class,
-
-
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->user)], 
-
-
-            'email' => 'required|email|unique:users,id,' . $empleadoId,
-
-            'email' => [
-                'required',
-                'string',
-                'email',
-                'max:255',
-                Rule::unique('empleados_bn')->ignore($empleadoId),
-            ],
-
+            'tipo_id' => 'sometimes|in:Cedula,Pasaporte',
+            'no_documento' => 'sometimes|string|max:255',
+            'usuario_empleado' => "sometimes|string|max:255|unique:empleados_bn,usuario_empleado,$empleadoId",
+            'email' => "sometimes|email|max:255|unique:empleados_bn,email,$empleadoId",
             'password' => 'nullable',
-
-            'puesto' => 'required|string|max:255',
-            'estatus_empleado' => 'required|in:Activo,Inactivo',
-
+            'puesto' => 'sometimes|string|max:255',
+            'estatus_empleado' => 'sometimes|in:Activo,Inactivo',
             #'roles' => 'required|array',
             #'roles.*' => 'exists:roles,id'
         ];
@@ -66,7 +47,7 @@ class EmpleadoUpdateRequest extends FormRequest
    public function messages(): array
    {
       return [
-        'institucion_id.required' => 'campo es requerido.', 
+        'institucion_id.required' => 'campo es requerido.',
         'direccion_id.required' => 'campo es requerido.',
         'departamento_id.required' => 'campo es requerido.',
         'sucursal_id.required' => 'campo es requerido.',
@@ -86,7 +67,7 @@ class EmpleadoUpdateRequest extends FormRequest
 
         #'roles.required' => 'Selecciona al menos un rol.',
         #'roles.array' => 'Rol no válido.',
-        #'roles.*.exists' => 'El rol seleccionado no existe.',      
+        #'roles.*.exists' => 'El rol seleccionado no existe.',
     ];
    }
 }

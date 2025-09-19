@@ -3,17 +3,20 @@
 namespace App\Modules\Empleados\Models;
 
 use App\Modules\Departamentos\Models\Departamento;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Modules\Direccion\Models\Direccion;
 use App\Modules\Institucion\Models\Institucion;
 use App\Modules\Sucursal\Models\Sucursal;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 
-class Empleado extends Model
+class Empleado extends Authenticatable
 {
-   use HasFactory;
-   
+   use HasApiTokens, Notifiable;
+
    protected $table = "empleados_bn";
 
    protected $fillable = [
@@ -33,23 +36,32 @@ class Empleado extends Model
    ];
 
 
+   protected $hidden = [
+      'password',
+      'remember_token',
+   ];
+
+   protected $casts = [
+      'email_verified_at' => 'datetime',
+   ];
+
    public function institucion()
-   {
-      return $this->belongsTo(Institucion::class);
-   }
+    {
+      return $this->belongsTo(Institucion::class, 'institucion_id');
+    }
 
    public function direccion()
    {
-      return $this->belongsTo(Direccion::class);
+      return $this->belongsTo(Direccion::class, 'direccion_id');
    }
 
    public function departamento()
    {
-      return $this->belongsTo(Departamento::class);
+      return $this->belongsTo(Departamento::class, 'sucursal_id');
    }
 
    public function sucursal()
    {
-      return $this->belongsTo(Sucursal::class);
+      return $this->belongsTo(Sucursal::class, 'departamento_id');
    }
 }

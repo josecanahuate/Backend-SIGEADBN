@@ -3,6 +3,7 @@
 namespace App\Modules\Departamentos\Services;
 
 use App\Modules\Departamentos\Repositories\DepartamentoRepository;
+use Exception;
 
 class DepartamentoService
 {
@@ -25,6 +26,11 @@ class DepartamentoService
 
     public function create(array $data)
     {
+        // Lógica de negocio extra
+        if ($this->repository->existsByName($data['nombre_depto'])) {
+            throw new Exception("Ya existe un departamento con ese nombre");
+        }
+
         return $this->repository->create($data);
     }
 

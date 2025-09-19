@@ -2,6 +2,7 @@
 
 namespace App\Modules\Departamentos\Models;
 
+use App\Modules\Empleados\Models\Empleado;
 use App\Modules\Sucursal\Models\Sucursal;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
